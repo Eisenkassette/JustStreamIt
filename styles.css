@@ -1,0 +1,34 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 0;
+}
+
+.centered {
+	display: block;
+	margin: 0 auto;
+}
+
+.banner {
+	display: flex;
+	justify-content: center;
+	padding: 0 5%;
+	border: 2px solid black;
+}
+
+.best_movie_section {
+	display:flex;
+	justify-content: center;
+	padding: 0 5%;
+	margin-top: 30px;
+}
+
+.best_movie_right, .best_movie_left {
+	flex: 1;
+	border: 2px solid black;
+}
+
+.container {
+	margin-top: 30px;
+}
