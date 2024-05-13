@@ -1,10 +1,10 @@
 body {
 	font-family: Arial, sans-serif;
-	background-color: #6a6a6a;
+	background-color: #61787e;
 	margin: 0;
 	padding: 0;
 }
-strong {
+.section_title {
 	font-weight: bold;
 	font-size: 220%;
 }
@@ -26,6 +26,7 @@ strong {
 	padding: 1% 5%;
 }
 .best_movie_section_content {
+	background-color: #616b7e;
 	border: black solid 3px;
 	display: flex;
 	justify-content: center;
@@ -52,9 +53,8 @@ strong {
 	font-weight: bold;
 	background-color: red;
 	color: white;
-	border-radius: 20%;
+	border-radius: 10%;
 	font-size: 120%;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	outline: none;
 	border: none;
 	padding: 10% 5%;
@@ -63,7 +63,7 @@ strong {
 .best_movie_details_button:hover {
 	background-color: darkred;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 601px) {
 	.best_movie_poster {
 		max-width: 100%;
 		height: auto;
@@ -75,7 +75,17 @@ strong {
 		flex: 1;
 	}
 }
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 600px) {
+	.best_movie_title {
+	padding: 0 2%;
+	}
+	.best_movie_descr {
+	padding: 0 2%;
+	}
+	.section_title {
+		display: flex;
+		justify-content: center;
+	}
 	.best_movie_section_content {
 		flex-direction: column;
 	}
@@ -96,16 +106,65 @@ strong {
 
 
 
-
-
-
-
-
-
-
-
 .best_rated_movies_section {
 	justify-content: center;
-	padding: 1% 5%;
+	padding: 2% 5%;
 }
-.best_rated_section_content
+.best_rated_section_content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Horizontally center the items */
+    align-items: center; /* Vertically center the items */
+}
+.movie_block {
+    width: calc(33.33% - 1%); /* 33.33% width for each block with 10px gap */
+    margin-right: 1%; /* Adjust the gap between the movie blocks */
+    margin-bottom: 1%;
+    overflow: hidden;
+    position: relative;
+	background-size: cover;
+
+}
+.movie_block::before {
+    content: "";
+    display: block;
+    padding-top: 30%;
+}
+.movie_block::after {
+    content: "";
+    display: block;
+    padding-top: 46%;
+}
+
+.movie_name_details {
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.movie_block_button_section {
+	text-align: right;
+	padding-right: 10%;
+	padding-bottom: 3%;
+}
+
+.movie_block_name {
+	color: white;
+    font-weight: bold;
+	font-size: 120%;
+	padding: 2% 2%;
+}
+
+.details_button {
+	background-color: #7a7a7a;
+	color: white;
+	border-radius: 10%;
+	padding: 2% 5%;
+	outline: none;
+	border: none;
+	transition: background-color 0.1s;
+}
+.details_button:hover {
+	background-color: #3c3c3c;
+}
