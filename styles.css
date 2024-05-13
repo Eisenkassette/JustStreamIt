@@ -1,34 +1,81 @@
 body {
 	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
+	background-color: #6a6a6a;
 	margin: 0;
 	padding: 0;
 }
-
-.centered {
-	display: block;
-	margin: 0 auto;
+strong {
+	font-weight: bold;
+	font-size: 220%;
 }
 
-.banner {
-	display: flex;
-	justify-content: center;
-	padding: 0 5%;
-	border: 2px solid black;
+.header {
+    text-align: center;
+	padding: 1% 5%;
 }
+
+.logo {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 
 .best_movie_section {
+	justify-content: center;
+	padding: 1% 5%;
+}
+.best_movie_section_content {
+	border: black solid 3px;
 	display:flex;
 	justify-content: center;
-	padding: 0 5%;
-	margin-top: 30px;
 }
-
-.best_movie_right, .best_movie_left {
+.best_movie_left {
+	flex: 0 0 auto;
+	padding: 1%;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.best_movie_poster {
+	max-width: 100%;
+	height: auto;
+}
+.best_movie_right {
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+}
+.best_movie_title {
 	flex: 1;
-	border: 2px solid black;
+}
+.best_movie_descr {
+	flex: 3;
+}
+.best_movie_button_section {
+	margin-left: auto;
+	padding-right: 10%;
+	padding-bottom: 2%;
+	flex: 1;
+}
+.best_movie_details_button {
+	font-weight: bold;
+	background-color: red;
+    color: white;
+    border-radius: 20%;
+	font-size: 120%;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	outline: none;
+	border: none;
+	padding: 10% 5%;
+	transition: background-color 0.1s;
+}
+.best_movie_details_button:hover {
+    background-color: darkred;
 }
 
-.container {
-	margin-top: 30px;
+.best_rated_movies_section {
+	justify-content: center;
+	padding: 1% 5%;
 }
+.best_rated_section_content
