@@ -133,7 +133,7 @@ body {
 .movie_block::after {
     content: "";
     display: block;
-    padding-top: 46%;
+    padding-top: 52%;
 }
 
 .movie_name_details {
@@ -154,6 +154,9 @@ body {
     font-weight: bold;
 	font-size: 120%;
 	padding: 2% 2%;
+	overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed text */
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .details_button {
