@@ -106,19 +106,19 @@ body {
 
 
 
-.best_rated_movies_section {
+.category_section {
 	justify-content: center;
 	padding: 2% 5%;
 }
-.best_rated_section_content {
+.category_section_content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Horizontally center the items */
-    align-items: center; /* Vertically center the items */
+    justify-content: center;
+    align-items: center;
 }
 .movie_block {
-    width: calc(33.33% - 1%); /* 33.33% width for each block with 10px gap */
-    margin-right: 1%; /* Adjust the gap between the movie blocks */
+    width: calc(33.33% - 1%);
+    margin-right: 1%;
     margin-bottom: 1%;
     overflow: hidden;
     position: relative;
@@ -133,7 +133,7 @@ body {
 .movie_block::after {
     content: "";
     display: block;
-    padding-top: 52%;
+    padding-top: 30%;
 }
 
 .movie_name_details {
@@ -154,9 +154,9 @@ body {
     font-weight: bold;
 	font-size: 120%;
 	padding: 2% 2%;
-	overflow: hidden; /* Hide overflowing content */
-    text-overflow: ellipsis; /* Display ellipsis for overflowed text */
-    white-space: nowrap; /* Prevent text wrapping */
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .details_button {
