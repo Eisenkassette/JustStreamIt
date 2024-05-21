@@ -123,17 +123,29 @@ body {
     overflow: hidden;
     position: relative;
 	background-size: cover;
-
 }
+
+@media screen and (max-width: 1000px) {
+    .movie_block {
+		width: calc(50% - 1%);
+	}
+}
+@media screen and (max-width: 600px) {
+    .movie_block {
+		width: calc(100% - 1%);
+	}
+}
+
+
 .movie_block::before {
     content: "";
     display: block;
-    padding-top: 30%;
+    padding-top: 50%;
 }
 .movie_block::after {
     content: "";
     display: block;
-    padding-top: 30%;
+    padding-top: 50%;
 }
 
 .movie_name_details {
@@ -171,6 +183,9 @@ body {
 .details_button:hover {
 	background-color: #3c3c3c;
 }
+
+
+
 
 
 
