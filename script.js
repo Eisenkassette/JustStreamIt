@@ -1,17 +1,20 @@
 "use strict";
 
-async function fetchMovies(score) {
-    const response = await fetch(`http://localhost:8000/api/v1/titles/?imdb_score=${score}`);
+async function fetchMovies(score, genre = "") {
+    const url = genre
+        ? `http://localhost:8000/api/v1/titles/?imdb_score=${score}&genre_contains=${genre}`
+        : `http://localhost:8000/api/v1/titles/?imdb_score=${score}`;
+    const response = await fetch(url);
     const data = await response.json();
     return data.results;
 }
 
-async function getTopMovies() {
+async function getTopMoviesByGenre(genre) {
     let movies = [];
     let score = 10;
 
-    while (movies.length < 7 && score >= 0) {
-        const results = await fetchMovies(score.toFixed(1));
+    while (movies.length < 6 && score >= 0) {
+        const results = await fetchMovies(score.toFixed(1), genre);
         movies = movies.concat(results);
         score -= 0.1;
     }
@@ -28,28 +31,30 @@ async function getTopMovies() {
     return movies.slice(0, 7);
 }
 
+async function getBestMovie() {
+    const bestMovie = await getTopMoviesByGenre("");
+    return bestMovie[0];
+}
 
-getTopMovies().then(topMovies => {
-    console.log(topMovies);
-    // ------------ BEST MOVIE UPDATE SECTION ------------
+getBestMovie().then(bestMovie => {
+    // Update best movie
     const bestMoviePoster = document.getElementById('best_movie_poster');
     const bestMovieTitle = document.getElementById('best_movie_title_content');
-    if (bestMovieTitle) {
-        bestMovieTitle.textContent = topMovies[0].title;
+    if (bestMovieTitle && bestMoviePoster) {
+        bestMovieTitle.textContent = bestMovie.title;
+        bestMoviePoster.src = bestMovie.image_url;
     } else {
-        console.log('Could not find best movie title element.');
+        console.log('Could not find elements for best movie.');
     }
-    if (bestMoviePoster) {
-        bestMoviePoster.src = topMovies[0].image_url;
-    } else {
-        console.log('Could not find the best movie image element.');
-    }
-    // ------------ TOP RATED MOVIES UPDATE SECTION ------------
-    for (let i = 1; i <= 6; i++) {
+}).catch(error => {
+    console.error('Error fetching movies:', error);
+});
+
+getTopMoviesByGenre("").then(topMovies => {
+    topMovies.shift()
+    for (let i = 0; i <= 6; i++) {
         const bestMovieBlock = document.getElementById(`best_movie_block_${i}`);
         const bestMovieName = document.getElementById(`best_movie_name_${i}`);
-
-        // Check if the elements exist before updating them
         if (bestMovieBlock && bestMovieName) {
             bestMovieBlock.style.backgroundImage = `url('${topMovies[i].image_url}')`;
             bestMovieName.textContent = topMovies[i].title;
@@ -60,3 +65,59 @@ getTopMovies().then(topMovies => {
 }).catch(error => {
     console.error('Error fetching movies:', error);
 });
+
+getTopMoviesByGenre("thriller").then(genreOneMovies => {
+    for (let i = 0; i <= 6; i++) {
+        const genreOneMovieBlock = document.getElementById(`genre_1_movie_block_${i}`);
+        const genreOneMovieName = document.getElementById(`genre_1_movie_name_${i}`);
+        if (genreOneMovieBlock && genreOneMovieName) {
+            genreOneMovieBlock.style.backgroundImage = `url('${genreOneMovies[i].image_url}')`;
+            genreOneMovieName.textContent = genreOneMovies[i].title;
+        } else {
+            console.log(`Could not find elements for index ${i}`);
+        }
+    }
+}).catch(error => {
+    console.error('Error fetching movies:', error);
+});
+
+getTopMoviesByGenre("drama").then(genreTwoMovies => {
+    console.log(genreTwoMovies);
+    for (let i = 0; i <= 6; i++) {
+        const genreOneMovieBlock = document.getElementById(`genre_2_movie_block_${i}`);
+        const genreOneMovieName = document.getElementById(`genre_2_movie_name_${i}`);
+        if (genreOneMovieBlock && genreOneMovieName) {
+            genreOneMovieBlock.style.backgroundImage = `url('${genreTwoMovies[i].image_url}')`;
+            genreOneMovieName.textContent = genreTwoMovies[i].title;
+        } else {
+            console.log(`Could not find elements for index ${i}`);
+        }
+    }
+}).catch(error => {
+    console.error('Error fetching movies:', error);
+});
+
+
+const genreSelect = document.getElementById('genre_1_select');
+genreSelect.addEventListener('change', () => {
+    // Get the value of the selected option
+    const selectedGenre = genreSelect.value;
+
+    getTopMoviesByGenre(selectedGenre).then(custOneMovies => {
+    console.log(custOneMovies);
+    for (let i = 0; i <= 6; i++) {
+        const genreOneMovieBlock = document.getElementById(`custom_1_movie_block_${i}`);
+        const genreOneMovieName = document.getElementById(`custom_1_movie_name_${i}`);
+        if (genreOneMovieBlock && genreOneMovieName) {
+            genreOneMovieBlock.style.backgroundImage = `url('${custOneMovies[i].image_url}')`;
+            genreOneMovieName.textContent = custOneMovies[i].title;
+        } else {
+            console.log(`Could not find elements for index ${i}`);
+        }
+    }
+}).catch(error => {
+    console.error('Error fetching movies:', error);
+});
+
+});
+
