@@ -17,16 +17,13 @@ async function fetchAllGenreNames(page = 1, allGenreNames = []) {
         const currentGenreNames = data.results.map(genre => genre.name);
         allGenreNames.push(...currentGenreNames);
 
-        // If there are more pages, recursively fetch them
         if (data.next) {
             return fetchAllGenreNames(page + 1, allGenreNames);
         } else {
-            // No more pages, return all genre names
             return allGenreNames;
         }
     } catch (error) {
         console.error('Error fetching genre names:', error);
-        return []; // Return an empty array in case of an error
     }
 }
 
@@ -57,6 +54,83 @@ async function getBestMovie() {
     return bestMovie[0];
 }
 
+// Function to handle the movie block click and fetch movie details by title
+function handleMovieBlockClick(movieTitle) {
+    const apiUrl = `http://localhost:8000/api/v1/titles/?title=${encodeURIComponent(movieTitle)}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const movieDetails = data.results[0]; // Assuming the API returns a list of movies and we're taking the first match
+
+            const modal = document.getElementById('movieModal');
+            const modalTitle = document.getElementById('modalMovieTitle');
+            const modalPoster = document.getElementById('modalMoviePoster');
+            const modalPoster_bottom = document.getElementById('modalMoviePoster_bottom');
+            const modalMovieGenre = document.getElementById('modalMovieGenre');
+            const modalMovieDate = document.getElementById('modalMovieDate');
+            const modalMovieScore = document.getElementById('modalMovieScore');
+            const modalMovieDirector = document.getElementById('modalMovieDirector');
+            const modalMovieActors = document.getElementById('modalMovieActors');
+
+            //const modalDescription = document.getElementById('modalMovieDescription');
+
+            modalTitle.textContent = movieDetails.title;
+            modalPoster.src = movieDetails.image_url;
+            modalPoster_bottom.src = movieDetails.image_url;
+            modalMovieGenre.innerHTML = "Genres: " + movieDetails.genres;
+            modalMovieDate.innerHTML = "Release: " + movieDetails.year;
+            modalMovieScore.innerHTML = "Score: " + movieDetails.imdb_score;
+            modalMovieDirector.innerHTML = movieDetails.directors;
+            modalMovieActors.innerHTML = "<br> Featuring: " + movieDetails.actors;
+
+            //modalDescription.textContent = movieDetails.description;
+
+            modal.style.display = "block";
+        })
+        .catch(error => {
+            console.error('Error fetching movie details:', error);
+        });
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById('movieModal');
+    modal.style.display = "none";
+}
+
+document.querySelector('.close').addEventListener('click', closeModal);
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById('movieModal');
+    if (event.target === modal) {
+        const modal = document.getElementById('movieModal');
+        modal.style.display = "none";
+    }
+});
+
+
+// Select all movie blocks and add click listeners
+document.querySelectorAll('.movie_block').forEach(movieBlock => {
+    movieBlock.addEventListener('click', () => {
+        const movieTitleElement = movieBlock.querySelector('.movie_block_name');
+        if (movieTitleElement) {
+            const movieTitle = movieTitleElement.textContent;
+            handleMovieBlockClick(movieTitle);
+        }
+    });
+});
+
+// best MOVIE detail button
+document.getElementById('best_movie_details_button').addEventListener('click', () => {
+    const movieTitleElement = document.getElementById('best_movie_title_content');
+    if (movieTitleElement) {
+        const movieTitle = movieTitleElement.textContent;
+        handleMovieBlockClick(movieTitle);
+    }
+});
+
+
+// best MOVIE section
 getBestMovie().then(bestMovie => {
     // Update best movie
     const bestMoviePoster = document.getElementById('best_movie_poster');
@@ -71,6 +145,7 @@ getBestMovie().then(bestMovie => {
     console.error('Error fetching movies:', error);
 });
 
+// best MOVIES section
 getTopMoviesByGenre("").then(topMovies => {
     topMovies.shift()
     for (let i = 0; i <= 6; i++) {
@@ -79,6 +154,11 @@ getTopMoviesByGenre("").then(topMovies => {
         if (bestMovieBlock && bestMovieName) {
             bestMovieBlock.style.backgroundImage = `url('${topMovies[i].image_url}')`;
             bestMovieName.textContent = topMovies[i].title;
+
+            bestMovieBlock.addEventListener('click', () => {
+                handleMovieBlockClick(topMovies[i].title);
+            });
+
         } else {
             console.log(`Could not find elements for index ${i}`);
         }
@@ -87,6 +167,7 @@ getTopMoviesByGenre("").then(topMovies => {
     console.error('Error fetching movies:', error);
 });
 
+// Fixed sections
 getTopMoviesByGenre("thriller").then(genreOneMovies => {
     for (let i = 0; i <= 6; i++) {
         const genreOneMovieBlock = document.getElementById(`genre_1_movie_block_${i}`);
@@ -119,7 +200,7 @@ getTopMoviesByGenre("drama").then(genreTwoMovies => {
 });
 
 
-
+// Custom section
 const genreOneSelect = document.getElementById('genre_1_select');
 const genreTwoSelect = document.getElementById('genre_2_select');
 
@@ -165,4 +246,20 @@ genreTwoSelect.addEventListener('change', () => {
         console.error('Error fetching movies:', error);
     });
 });
+
+// Show more button
+const showMoreButtons = document.querySelectorAll('.show_more_button');
+showMoreButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const section = button.closest('.category_section');
+        const movieBlocks = section.querySelectorAll('.movie_block');
+
+        movieBlocks.forEach(block => {
+            block.style.display = 'block';
+        });
+
+        button.style.display = 'none';
+    });
+});
+
 

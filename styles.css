@@ -124,15 +124,61 @@ body {
     position: relative;
 	background-size: cover;
 }
-
+#modalMoviePoster_bottom {
+	display: none;
+	border: black solid 3px;
+	margin: 10%;
+}
 @media screen and (max-width: 1000px) {
     .movie_block {
 		width: calc(50% - 1%);
+	}
+	#modalMoviePoster,
+	#best_movie_block_4,
+	#best_movie_block_5,
+	#genre_1_movie_block_4,
+	#genre_1_movie_block_5,
+	#genre_2_movie_block_4,
+	#genre_2_movie_block_5,
+	#custom_1_movie_block_4,
+	#custom_1_movie_block_5,
+	#custom_2_movie_block_4,
+	#custom_2_movie_block_5 {
+		display: none;
+	}
+	#modalMoviePoster_bottom {
+		display: block;
 	}
 }
 @media screen and (max-width: 600px) {
     .movie_block {
 		width: calc(100% - 1%);
+	}
+	#modalMoviePoster,
+	#best_movie_block_2,
+	#best_movie_block_3,
+	#best_movie_block_4,
+	#best_movie_block_5,
+	#genre_1_movie_block_2,
+	#genre_1_movie_block_3,
+	#genre_1_movie_block_4,
+	#genre_1_movie_block_5,
+	#genre_2_movie_block_2,
+	#genre_2_movie_block_3,
+	#genre_2_movie_block_4,
+	#genre_2_movie_block_5,
+	#custom_1_movie_block_2,
+	#custom_1_movie_block_3,
+	#custom_1_movie_block_4,
+	#custom_1_movie_block_5,
+	#custom_2_movie_block_2,
+	#custom_2_movie_block_3,
+	#custom_2_movie_block_4,
+	#custom_2_movie_block_5 {
+		display: none;
+	}
+	#modalMoviePoster_bottom {
+		display: block;
 	}
 }
 
@@ -184,9 +230,29 @@ body {
 	background-color: #3c3c3c;
 }
 
+.genre_select {
+	font-weight: bold;
+	font-size: 80%;
+	margin-bottom: 1%;
+}
 
+.show_more_button {
+	font-weight: bold;
+	font-size: 120%;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-
+.show_more_button:hover {
+    background-color: darkred;
+}
 
 
 .modal {
@@ -201,23 +267,23 @@ body {
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
-
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 3px solid #000000;
     width: 80%;
-    max-width: 600px;
 }
-
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+	margin: 33%;
+	padding-right: 10%;
+	padding-left: 10%;
+	border-radius: 5px;
+	background-color: red;
+    color: #ffffff;
+    font-size: 25px;
     font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
     color: black;
@@ -225,5 +291,19 @@ body {
     cursor: pointer;
 }
 
+.modal_layer_main {
+	display: flex;
+	flex-direction: column;
+}
+.modal_layer_one {
+	display: flex;
+	flex-direction: row;
+}
+.modal_left_side {
+	flex:1;
+	line-height: 0.7;
+}
+.modal_right_side {
 
 
+}
