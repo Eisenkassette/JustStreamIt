@@ -1,7 +1,7 @@
 "use strict";
 
 async function fetchMovies(score, genre = "") {
-    const url = `http://localhost:8000/api/v1/titles/?imdb_score=${score}&genre_contains=${genre}`
+    const url = `http://localhost:8000/api/v1/titles/?imdb_score=${score}&genre_contains=${genre}`;
     const response = await fetch(url);
     const data = await response.json();
     return data.results;
@@ -76,9 +76,9 @@ function handleMovieBlockClick(movieTitle) {
             modalTitle.textContent = movieDetails.title;
             modalPoster.src = movieDetails.image_url;
             modalPoster_bottom.src = movieDetails.image_url;
-            modalMovieGenre.innerHTML = "Genres: " + movieDetails.genres;
-            modalMovieDate.innerHTML = "Release: " + movieDetails.year;
-            modalMovieScore.innerHTML = "Score: " + movieDetails.imdb_score;
+            modalMovieDate.innerHTML = movieDetails.year;
+            modalMovieGenre.innerHTML = "&nbsp;- " + movieDetails.genres;
+            modalMovieScore.innerHTML = "IMDB score: " + movieDetails.imdb_score;
             modalMovieDirector.innerHTML = movieDetails.directors;
             modalMovieActors.innerHTML = "<br> Featuring: " + movieDetails.actors;
 

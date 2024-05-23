@@ -513,22 +513,32 @@
 					<div class="modal_layer_one">
 						<div class="modal_left_side">
 							<h1 id="modalMovieTitle">Movie Title</h1>
-							<h2 id="modalMovieGenre"> GENRE </h2>
-							<h2 id="modalMovieDate"> DATE </h2>
-							<h2 id="modalMoviePR">PG 13</h2>
-							<h2 id="modalMovieScore"> SCORE </h2>
-							<h2>Directed by:</h2>
-							<h1 id="modalMovieDirector"> DIRECTOR </h1>
+							<div class="date_and_genre">
+								<h2 class="modal_text" id="modalMovieDate"> DATE </h2>
+								<h2 class="modal_text" id="modalMovieGenre"> GENRE </h2>
+							</div>
+							<div class="pg_rating_length_and_country">
+								<h2 class="modal_text" id="modalMoviePG">PG 13 -&nbsp;</h2>
+								<h2 class="modal_text" id="modalMovieLength">115 m -&nbsp;</h2>
+								<h2 class="modal_text" id="modalMovieCountry"> (USA) </h2>
+							</div>
+							<div class="imdb_score_block">
+								<h2 class="modal_text" id="modalMovieScore"> SCORE </h2>
+							</div>
+							<div class="director_block">
+								<h2 class="modal_text">Directed by:</h2>
+								<h1 class="modal_text" id="modalMovieDirector"> DIRECTOR </h1>
+							</div>
 						</div>
 						<div class="modal_right_side">
 							<img id="modalMoviePoster" src="blank.jpg" alt="Movie Poster" class="modal_movie_poster">
 						</div>
 					</div>
-					<div id="modalMovieDescription">
+					<div class="modal_text" id="modalMovieDescription">
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Lorem ipsum do.
 					</div>
-					<div id="modalMovieActors"></div>
 					<img id="modalMoviePoster_bottom" src="blank.jpg" alt="Movie Poster" class="modal_movie_poster">
+					<div class="modal_text" id="modalMovieActors"></div>
 				</div>
 				<span class="close"> Close </span>
 			</div>
