@@ -181,7 +181,11 @@ body {
 		display: block;
 	}
 }
-
+@media (min-width: 1000px) {
+  .show_more_button_section {
+	  display: none;
+  }
+}
 
 .movie_block::before {
     content: "";
@@ -302,8 +306,4 @@ body {
 .modal_left_side {
 	flex:1;
 	line-height: 0.7;
-}
-.modal_right_side {
-
-
 }
