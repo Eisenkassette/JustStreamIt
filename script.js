@@ -192,10 +192,13 @@ getTopMoviesByGenre("drama", 6).then(genreTwoMovies => {
     console.error('Error fetching movies:', error);
 });
 
-
 // Custom section
 const genreOneSelect = document.getElementById('genre_1_select');
 const genreTwoSelect = document.getElementById('genre_2_select');
+const contentOneSection = document.getElementById('custom_1_movies_section_content');
+const contentTwoSection = document.getElementById('custom_2_movies_section_content');
+contentOneSection.classList.add('hidden');
+contentTwoSection.classList.add('hidden');
 
 fetchAllGenreNames().then(genreNames => {
     genreNames.forEach(genreName => {
@@ -217,6 +220,7 @@ genreOneSelect.addEventListener('change', () => {
         } else {
             console.log(`Could not find elements for index ${i}`);
         }
+        contentOneSection.classList.remove('hidden');
     }
     }).catch(error => {
         console.error('Error fetching movies:', error);
@@ -234,6 +238,7 @@ genreTwoSelect.addEventListener('change', () => {
         } else {
             console.log(`Could not find elements for index ${i}`);
         }
+        contentTwoSection.classList.remove('hidden');
     }
     }).catch(error => {
         console.error('Error fetching movies:', error);

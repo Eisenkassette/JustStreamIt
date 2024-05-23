@@ -320,3 +320,7 @@ body {
 	flex-direction: column;
 	line-height: 0.7;
 }
+
+.hidden {
+    display: none;
+}
