@@ -1,9 +1,7 @@
 "use strict";
 
 async function fetchMovies(score, genre = "") {
-    const url = genre
-        ? `http://localhost:8000/api/v1/titles/?imdb_score=${score}&genre_contains=${genre}`
-        : `http://localhost:8000/api/v1/titles/?imdb_score=${score}`;
+    const url = `http://localhost:8000/api/v1/titles/?imdb_score=${score}&genre_contains=${genre}`
     const response = await fetch(url);
     const data = await response.json();
     return data.results;
@@ -27,11 +25,11 @@ async function fetchAllGenreNames(page = 1, allGenreNames = []) {
     }
 }
 
-async function getTopMoviesByGenre(genre) {
+async function getTopMoviesByGenre(genre, amount) {
     let movies = [];
     let score = 10;
 
-    while (movies.length < 6 && score >= 0) {
+    while (movies.length < amount && score >= 0) {
         const results = await fetchMovies(score.toFixed(1), genre);
         movies = movies.concat(results);
         score -= 0.1;
@@ -46,11 +44,11 @@ async function getTopMoviesByGenre(genre) {
         }
     });
 
-    return movies.slice(0, 7);
+    return movies.slice(0, amount);
 }
 
 async function getBestMovie() {
-    const bestMovie = await getTopMoviesByGenre("");
+    const bestMovie = await getTopMoviesByGenre("", 1);
     return bestMovie[0];
 }
 
@@ -61,7 +59,7 @@ function handleMovieBlockClick(movieTitle) {
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            const movieDetails = data.results[0]; // Assuming the API returns a list of movies and we're taking the first match
+            const movieDetails = data.results[0];
 
             const modal = document.getElementById('movieModal');
             const modalTitle = document.getElementById('modalMovieTitle');
@@ -146,7 +144,7 @@ getBestMovie().then(bestMovie => {
 });
 
 // best MOVIES section
-getTopMoviesByGenre("").then(topMovies => {
+getTopMoviesByGenre("", 7).then(topMovies => {
     topMovies.shift()
     for (let i = 0; i <= 6; i++) {
         const bestMovieBlock = document.getElementById(`best_movie_block_${i}`);
@@ -154,11 +152,6 @@ getTopMoviesByGenre("").then(topMovies => {
         if (bestMovieBlock && bestMovieName) {
             bestMovieBlock.style.backgroundImage = `url('${topMovies[i].image_url}')`;
             bestMovieName.textContent = topMovies[i].title;
-
-            bestMovieBlock.addEventListener('click', () => {
-                handleMovieBlockClick(topMovies[i].title);
-            });
-
         } else {
             console.log(`Could not find elements for index ${i}`);
         }
@@ -168,7 +161,7 @@ getTopMoviesByGenre("").then(topMovies => {
 });
 
 // Fixed sections
-getTopMoviesByGenre("thriller").then(genreOneMovies => {
+getTopMoviesByGenre("thriller", 6).then(genreOneMovies => {
     for (let i = 0; i <= 6; i++) {
         const genreOneMovieBlock = document.getElementById(`genre_1_movie_block_${i}`);
         const genreOneMovieName = document.getElementById(`genre_1_movie_name_${i}`);
@@ -183,7 +176,7 @@ getTopMoviesByGenre("thriller").then(genreOneMovies => {
     console.error('Error fetching movies:', error);
 });
 
-getTopMoviesByGenre("drama").then(genreTwoMovies => {
+getTopMoviesByGenre("drama", 6).then(genreTwoMovies => {
     console.log(genreTwoMovies);
     for (let i = 0; i <= 6; i++) {
         const genreOneMovieBlock = document.getElementById(`genre_2_movie_block_${i}`);
@@ -214,7 +207,7 @@ fetchAllGenreNames().then(genreNames => {
 });
 
 genreOneSelect.addEventListener('change', () => {
-    getTopMoviesByGenre(genreOneSelect.value).then(custOneMovies => {
+    getTopMoviesByGenre(genreOneSelect.value, 6).then(custOneMovies => {
     for (let i = 0; i <= 6; i++) {
         const genreOneMovieBlock = document.getElementById(`custom_1_movie_block_${i}`);
         const genreOneMovieName = document.getElementById(`custom_1_movie_name_${i}`);
@@ -231,7 +224,7 @@ genreOneSelect.addEventListener('change', () => {
 });
 
 genreTwoSelect.addEventListener('change', () => {
-    getTopMoviesByGenre(genreTwoSelect.value).then(custTwoMovies => {
+    getTopMoviesByGenre(genreTwoSelect.value, 6).then(custTwoMovies => {
     for (let i = 0; i <= 6; i++) {
         const genreOneMovieBlock = document.getElementById(`custom_2_movie_block_${i}`);
         const genreOneMovieName = document.getElementById(`custom_2_movie_name_${i}`);
